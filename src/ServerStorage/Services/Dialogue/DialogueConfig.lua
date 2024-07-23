@@ -1,10 +1,10 @@
+-- this module contains the data needed for DialogueService, including the text that will be spoken by the NPC
 return {
     SpeakVelocity = .01,
-    Debounce = true,
     Text = {
         "Heyy ",
         "How are you doing?",
-        "Thanks for creating me!",
+        "Thanks for talking to me!",
         "Let's eat something?"
     }
 }

@@ -50,7 +50,7 @@ function DialogueService:CreatePrompt(NPC): ProximityPrompt
             self:PopUp(LocalUi, true)
             self:LookAtPlayer(NPC, PLR)
             for index, text in pairs(DialogueConfig.Text) do
-                if not typeof(text) == 'string' then
+                if typeof(text) ~= 'string' then
                     continue
                 end
                 if index == 1 then
@@ -65,25 +65,25 @@ function DialogueService:CreatePrompt(NPC): ProximityPrompt
     end)
 end
 
-function DialogueService:LookAtPlayer(NPC : Model, PLR : Player)
+function DialogueService:LookAtPlayer(NPC : Model, PLR : Player) -- this function will make the npc look at the player who triggered the prompt
     local LookAnim = TweenService:Create (
         NPC.HumanoidRootPart,
         LookInfo,
         {CFrame = CFrame.lookAt(NPC.HumanoidRootPart.Position, PLR.Character.HumanoidRootPart.Position)}
     )
-    return LookAnim:Play()
+    return LookAnim:Play() -- returns the animation
 end
 
-function DialogueService:PopUp(LocalUi : BillboardGui, Value : boolean): any?
-   --LocalUi.Enabled = Value
+-- this function determines if the text ui will pop up or be hidden, it is passed by the param "Value"
+function DialogueService:PopUp(LocalUi : BillboardGui, Value : boolean)
    local ShowAnim = TweenService:Create(LocalUi, Info, {Size = UDim2.new(0,200,0,100)})
    local HideAnim = TweenService:Create(LocalUi, Info, {Size = UDim2.fromScale(0,0)})
-   if Value then
+   if Value then -- if value is true then (shows ui)
       LocalUi.Enabled = true
       LocalUi.Size = UDim2.fromScale(.5,.5)
       ShowAnim:Play()
       ShowAnim.Completed:Wait()
-   else
+   else -- if it's false (hide ui)
       HideAnim:Play()
       HideAnim.Completed:Wait()
       LocalUi.Enabled = false
@@ -91,6 +91,7 @@ function DialogueService:PopUp(LocalUi : BillboardGui, Value : boolean): any?
    return "completed"
 end
 
+-- this functions does the animation of the TextLabel inside the dialogue ui 
 function DialogueService:TypeWriteEffect(Text : string, Target : TextLabel, Audio : Sound)
     local newStr = string.split(Text, '')
     for _, char in pairs(newStr) do

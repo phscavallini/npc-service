@@ -31,6 +31,7 @@ function NPCService:Setup(NPC : Model): table
     return self.NPCs
 end
 
+-- animate all the NPCs that are into NPCService.NPCs table
 function NPCService:AnimateNPCs()
     for _, NPC in pairs(self.NPCs) do
         if not NPC:WaitForChild("Animations") then -- if it cant find the animations folder then
